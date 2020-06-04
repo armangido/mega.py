@@ -191,7 +191,7 @@ class Mega:
 
     def _parse_url(self, url):
         # parse file id and key from url
-        if '!' in url:
+        if '#' in url:
             match = re.findall(r'file/(.*)', url) #change to new mega url ex. mega.nz/file/6NBn3CbC#-OglNAiXpvRSS0k4jvM0EQxl4378hr7QovIgYKhIcoiI
             path = match[0]
             return path
@@ -782,6 +782,7 @@ class Mega:
                 raise ValueError('Mismatched mac')
             output_path = Path(dest_path + file_name)
             shutil.move(temp_output_file.name, output_path)
+            temp_output_file.close()
             return output_path
 
     def upload(self, filename, dest=None, dest_filename=None):
